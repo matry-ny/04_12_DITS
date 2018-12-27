@@ -15,9 +15,8 @@ class Request extends AbstractRequest
   {
     global $argv;
     $queryString = isset($argv[1]) ? $argv[1] : '';
-    $this->address = $this->prepareAddress($queryString);
 
-    new Parser($this);
+    $this->address = $this->prepareAddress($queryString);
   }
 
   /**

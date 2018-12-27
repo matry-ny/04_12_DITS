@@ -14,6 +14,31 @@ abstract class AbstractRequest
   protected $address;
 
   /**
+   * @var Parser
+   */
+  protected $parser;
+
+  /**
+   * @return Parser
+   */
+  public function getParser(): Parser
+  {
+    if (null === $this->parser) {
+      $this->parser = new Parser($this);
+    }
+
+    return $this->parser;
+  }
+
+  /**
+   * @return array
+   */
+  public function getParts(): array
+  {
+    return array_filter(explode('/', $this->address));
+  }
+
+  /**
    * @param string $address
    * @return string
    */

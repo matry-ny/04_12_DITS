@@ -14,8 +14,6 @@ class Request extends AbstractRequest
   public function __construct()
   {
     $this->address = $this->prepareAddress($_SERVER['REQUEST_URI']);
-
-    new Parser($this);
   }
 
   /**
