@@ -1,12 +1,12 @@
 <?php
 
-namespace app\frontend\controllers;
+namespace app\admin\controllers;
 
 use components\AbstractController;
 
 /**
  * Class ProductsController
- * @package app\frontend\controllers
+ * @package app\admin\controllers
  */
 class ProductsController extends AbstractController
 {
