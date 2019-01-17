@@ -2,6 +2,7 @@
 
 namespace components;
 
+use components\db\Database;
 use components\request\AbstractRequest;
 use components\request\web\Request as WebRequest;
 use components\request\cli\Request as CliRequest;
@@ -26,6 +27,11 @@ class App
    * @var array
    */
   private $config;
+
+  /**
+   * @var Database|null
+   */
+  private $db = null;
 
   /**
    * App constructor.
@@ -87,5 +93,25 @@ class App
     } else {
       $this->request = new WebRequest();
     }
+  }
+
+  /**
+   * @return Database
+   */
+  public function db(): Database
+  {
+    if (null === $this->db) {
+      /**
+       * @var string $host
+       * @var string $user
+       * @var string $password
+       * @var string $dbName
+       */
+      extract($this->config['db']);
+
+      $this->db = new Database($host, $user, $password, $dbName);
+    }
+
+    return $this->db;
   }
 }

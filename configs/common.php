@@ -2,9 +2,9 @@
 
 return [
   'db' => [
-    'host' => '',
-    'user' => '',
+    'host' => 'localhost',
+    'user' => 'root',
     'password' => '',
-    'dbName' => ''
+    'dbName' => '0412_shop'
   ]
 ];

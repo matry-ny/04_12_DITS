@@ -3,6 +3,7 @@
 namespace app\frontend\controllers;
 
 use components\AbstractController;
+use PDO;
 
 /**
  * Class ProductsController
@@ -12,6 +13,11 @@ class ProductsController extends AbstractController
 {
   public function actionList()
   {
-    echo self::class;
+    $products = \components\App::get()
+      ->db()
+      ->getQueryBuilder()
+      ->prepare('SELECT * FROM products');
+
+    var_dump($products->fetchAll(PDO::FETCH_ASSOC));
   }
 }
