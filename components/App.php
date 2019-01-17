@@ -34,6 +34,11 @@ class App
   private $db = null;
 
   /**
+   * @var null|Template
+   */
+  private $template = null;
+
+  /**
    * App constructor.
    * @param array $config
    */
@@ -113,5 +118,17 @@ class App
     }
 
     return $this->db;
+  }
+
+  /**
+   * @return Template
+   */
+  public function template(): Template
+  {
+    if (null === $this->template) {
+      $this->template = new Template($this->config['templatesDir']);
+    }
+
+    return $this->template;
   }
 }
