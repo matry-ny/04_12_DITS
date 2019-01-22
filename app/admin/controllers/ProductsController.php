@@ -2,16 +2,17 @@
 
 namespace app\admin\controllers;
 
-use components\AbstractController;
+use app\admin\components\AbstractAdminController;
+use components\App;
 
 /**
  * Class ProductsController
  * @package app\admin\controllers
  */
-class ProductsController extends AbstractController
+class ProductsController extends AbstractAdminController
 {
   public function actionList()
   {
-    echo self::class;
+    App::get()->template()->render('products/list');
   }
 }

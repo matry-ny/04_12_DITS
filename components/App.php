@@ -39,6 +39,11 @@ class App
   private $template = null;
 
   /**
+   * @var null|User
+   */
+  private $user = null;
+
+  /**
    * App constructor.
    * @param array $config
    */
@@ -130,5 +135,17 @@ class App
     }
 
     return $this->template;
+  }
+
+  /**
+   * @return User
+   */
+  public function user(): User
+  {
+    if (null === $this->user) {
+      $this->user = new User();
+    }
+
+    return $this->user;
   }
 }

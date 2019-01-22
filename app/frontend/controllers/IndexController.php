@@ -18,6 +18,7 @@ class IndexController extends AbstractController
       ->db()
       ->getQueryBuilder()
       ->prepare('SELECT * FROM products');
+    $products->execute();
 
     App::get()->template()->render('index/index', [
       'products' => $products->fetchAll(PDO::FETCH_ASSOC)

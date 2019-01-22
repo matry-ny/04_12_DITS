@@ -31,6 +31,6 @@ class Query
    */
   public function prepare(string $sql): PDOStatement
   {
-    return $this->dbConnection->query($sql);
+    return $this->dbConnection->prepare($sql);
   }
 }
