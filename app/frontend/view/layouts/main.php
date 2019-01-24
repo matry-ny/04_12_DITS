@@ -39,9 +39,13 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <span data-feather="home"></span>
-              Categories <span class="sr-only">(current)</span>
+            <a class="nav-link active" href="/categories/list">
+              Categories
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/products/list">
+              Products
             </a>
           </li>
           <li class="nav-item">

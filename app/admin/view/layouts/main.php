@@ -57,6 +57,12 @@ $logoutUrl = vsprintf('%s://logout-%s@%s', [
               Products
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/list">
+              <span data-feather="file"></span>
+              Categories
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

@@ -4,6 +4,7 @@ namespace app\admin\controllers;
 
 use app\admin\components\AbstractAdminController;
 use components\App;
+use models\Products;
 
 /**
  * Class ProductsController
@@ -13,6 +14,7 @@ class ProductsController extends AbstractAdminController
 {
   public function actionList()
   {
-    App::get()->template()->render('products/list');
+    $products = (new Products())->find();
+    $this->render('products/list', ['products' => $products]);
   }
 }

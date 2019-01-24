@@ -39,4 +39,12 @@ class RequestHelper
   {
     return $_SERVER['HTTP_HOST'];
   }
+
+  /**
+   * @return bool
+   */
+  public static function getIsPost(): bool
+  {
+    return strtolower($_SERVER['REQUEST_METHOD']) == 'post';
+  }
 }

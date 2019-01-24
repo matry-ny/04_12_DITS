@@ -22,4 +22,18 @@ abstract class AbstractController
 
     call_user_func_array([$this, $action], []);
   }
+
+  /**
+   * @param string $template
+   * @param array $variables
+   * @param string $layout
+   * @throws \Exception
+   */
+  public function render(
+    string $template,
+    array $variables = [],
+    string $layout = 'layouts/main'
+  ) {
+    App::get()->template()->render($template, $variables, $layout);
+  }
 }
