@@ -27,7 +27,6 @@ class CategoriesController extends AbstractAdminController
     } else {
       $this->render('categories/create');
     }
-
   }
 
   /**

@@ -2,6 +2,7 @@
 
 namespace components\db;
 
+use helpers\ArrayHelper;
 use PDO;
 use components\App;
 
@@ -34,6 +35,7 @@ abstract class AbstractModel
 
   /**
    * @param array $data
+   * @param array $types
    * @throws \Exception
    */
   public function create(array $data)
@@ -55,7 +57,7 @@ SQL;
       ->prepare($sql);
 
     foreach ($data as $key => $value) {
-      $query->bindParam(":{$key}", $value);
+      $query->bindValue(":{$key}", $value);
     }
 
     $query->execute();
