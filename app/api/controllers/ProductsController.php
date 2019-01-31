@@ -2,16 +2,18 @@
 
 namespace app\api\controllers;
 
-use components\AbstractController;
+use app\api\components\AbstractApiController;
+use models\Products;
 
 /**
  * Class ProductsController
  * @package app\api\controllers
  */
-class ProductsController extends AbstractController
+class ProductsController extends AbstractApiController
 {
-  public function actionList()
+  public function actionGetList()
   {
-    echo self::class;
+    $productsModel = new Products();
+    echo json_encode($productsModel->getPretty());
   }
 }
