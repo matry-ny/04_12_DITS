@@ -1,3 +1,9 @@
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://js-app.local"
+    Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type, auth-key"
+    Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+</IfModule>
+
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -4,6 +4,7 @@ namespace app\api\components;
 
 use components\App;
 use components\AbstractController;
+use helpers\ArrayHelper;
 
 /**
  * Class AbstractApiController
@@ -25,7 +26,7 @@ class AbstractApiController extends AbstractController
   private function validateRequest()
   {
     $allowedKeys = App::get()->config()['clients'];
-    $actualKey = $_SERVER['HTTP_AUTH_KEY'];
+    $actualKey = ArrayHelper::getValue($_SERVER, 'HTTP_AUTH_KEY');
 
     if (!in_array($actualKey, $allowedKeys)) {
       exit('You shell not pass');
