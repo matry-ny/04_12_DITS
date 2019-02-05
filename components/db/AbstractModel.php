@@ -35,10 +35,10 @@ abstract class AbstractModel
 
   /**
    * @param array $data
-   * @param array $types
+   * @return int
    * @throws \Exception
    */
-  public function create(array $data)
+  public function create(array $data): int
   {
     $columns = implode(', ', array_keys($data));
     $values = [];
@@ -61,5 +61,7 @@ SQL;
     }
 
     $query->execute();
+
+    return (int)App::get()->db()->getConnection()->lastInsertId();
   }
 }

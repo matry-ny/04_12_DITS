@@ -3,8 +3,11 @@
 namespace app\admin\controllers;
 
 use app\admin\components\AbstractAdminController;
+use components\App;
+use helpers\ArrayHelper;
 use helpers\RequestHelper;
 use models\Authors;
+use models\ProductImages;
 use models\Products;
 
 /**
@@ -22,7 +25,11 @@ class ProductsController extends AbstractAdminController
   public function actionCreate()
   {
     if (RequestHelper::getIsPost()) {
-      $this->getModel()->create($_POST);
+
+      $productId = $this->getModel()->create($_POST);
+      $files = ArrayHelper::reArrayFiles($_FILES['images']);
+      (new ProductImages())->uploadImages($productId, $files);
+
       RequestHelper::redirect('/products/list');
     } else {
       $authors = (new Authors())->find();

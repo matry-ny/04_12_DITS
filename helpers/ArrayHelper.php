@@ -23,4 +23,24 @@ class ArrayHelper
   {
     return array_key_exists($key, $data) ? $data[$key] : $default;
   }
+
+  /**
+   * @param array $filePost
+   * @return array
+   */
+  public static function reArrayFiles(array $filePost): array
+  {
+    $fileCount = count($filePost['name']);
+    $fileKeys = array_keys($filePost);
+
+    $result = [];
+    for ($i=0; $i < $fileCount; $i++) {
+      foreach ($fileKeys as $key) {
+        $result[$i][$key] = $filePost[$key][$i];
+      }
+    }
+
+    return $result;
+  }
+
 }

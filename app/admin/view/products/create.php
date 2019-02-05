@@ -8,7 +8,7 @@ use widgets\DropDownOptions;
 
 ?>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   <label for="product-title">Title</label>
   <input type="text" name="title" class="form-control" id="product-title">
 
@@ -24,6 +24,20 @@ use widgets\DropDownOptions;
          name="price"
          class="form-control"
          id="product-price">
+
+  <label for="product-images">Images</label>
+  <div class="input-group">
+    <div class="custom-file">
+      <input type="file"
+             name="images[]"
+             class="custom-file-input"
+             id="product-images"
+             aria-describedby="inputGroupFileAddon04"
+             accept="image/png, image/jpeg"
+             multiple>
+      <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+    </div>
+  </div>
 
   <input type="submit" class="btn btn-success" value="Add">
 </form>

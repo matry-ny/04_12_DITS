@@ -52,8 +52,6 @@ class Database
     $this->user = $user;
     $this->password = $password;
     $this->dbName = $dbName;
-
-    $this->connection = $this->getConnection();
   }
 
   /**
@@ -61,10 +59,14 @@ class Database
    */
   public function getConnection(): PDO
   {
-    $dsn = "mysql:host={$this->host};dbname={$this->dbName}";
-    $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'];
+    if (null === $this->connection) {
+      $dsn = "mysql:host={$this->host};dbname={$this->dbName}";
+      $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'];
 
-    return new PDO($dsn, $this->user, $this->password, $options);
+      $this->connection = new PDO($dsn, $this->user, $this->password, $options);
+    }
+
+    return $this->connection;
   }
 
   /**
@@ -78,7 +80,7 @@ class Database
   public function getQueryBuilder(): Query
   {
     if (null === $this->queryBuilder) {
-      $this->queryBuilder = new Query($this->connection);
+      $this->queryBuilder = new Query($this->getConnection());
     }
 
     return $this->queryBuilder;
