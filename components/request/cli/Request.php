@@ -27,4 +27,13 @@ class Request extends AbstractRequest
   {
     return trim($address, " \t\n\r\0\x0B/");
   }
+
+  /**
+   * @return mixed
+   */
+  public function getParams(): array
+  {
+    // ToDo: Implement params parsing
+    return [];
+  }
 }

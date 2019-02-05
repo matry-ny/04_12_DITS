@@ -16,4 +16,14 @@ class ProductsController extends AbstractApiController
     $productsModel = new Products();
     echo json_encode($productsModel->getPretty());
   }
+
+  /**
+   * @param $id
+   * @param $title
+   * @param array $filter
+   */
+  public function actionGetItem($id, $title, $filter = [])
+  {
+    var_dump($id, $title, $filter);
+  }
 }

@@ -15,7 +15,7 @@ class AbstractApiController extends AbstractController
   public function __construct()
   {
     $this->validateRequest();
-    $this->setJsonAnswerFormat();
+//    $this->setJsonAnswerFormat();
   }
 
   private function setJsonAnswerFormat()

@@ -39,6 +39,11 @@ abstract class AbstractRequest
   }
 
   /**
+   * @return mixed
+   */
+  abstract public function getParams(): array;
+
+  /**
    * @param string $address
    * @return string
    */

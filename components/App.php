@@ -71,7 +71,7 @@ class App
     $controller = self::$instance->request->getParser()->getController();
     $action = self::$instance->request->getParser()->getAction();
 
-    $controller->runAction($action);
+    $controller->runAction($action, self::$instance->request->getParams());
 
   }
 
