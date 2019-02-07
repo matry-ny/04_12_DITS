@@ -12,5 +12,5 @@ use widgets\Table;
 
 <?php (new Table(
   ['ID', 'Title', 'Author ID', 'Price', 'Created At'],
-  $products)
-)->render();
+  $products
+))->render("/products/update");

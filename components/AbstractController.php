@@ -2,6 +2,7 @@
 
 namespace components;
 
+use components\db\Query;
 use exceptions\RequestException;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -55,19 +56,11 @@ abstract class AbstractController
   }
 
   /**
-   * @param string $action
-   * @return mixed
+   * @return Query
+   * @throws \Exception
    */
-  private function getActionArguments(string $action): array
+  public function getQuery(): Query
   {
-    $method = new ReflectionMethod($this, $action);
-
-    $params = $method->getParameters();
-    $requiredParams = $method->getNumberOfRequiredParameters();
-
-    return [
-      'required' => array_slice($params, 0, $requiredParams),
-      'additional' => array_slice($params, $requiredParams)
-    ];
+    return App::get()->db()->getQueryBuilder();
   }
 }

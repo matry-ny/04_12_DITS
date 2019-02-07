@@ -25,10 +25,14 @@ class DropDownOptions
     $this->options = $this->prepareData($options, $valueKey, $labelKey);
   }
 
-  public function render()
+  /**
+   * @param null|mixed $selected
+   */
+  public function render($selected = null)
   {
     foreach ($this->options as $value => $label) {
-      echo "<option value='{$value}'>{$label}</option>";
+      $isSelected = $selected == $value ? 'selected' : '';
+      echo "<option value='{$value}' {$isSelected}>{$label}</option>";
     }
   }
 

@@ -25,8 +25,12 @@ class ProductsController extends AbstractAdminController
   public function actionCreate()
   {
     if (RequestHelper::getIsPost()) {
+      $productId = $this
+        ->getQuery()
+        ->insert($_POST)
+        ->into('products')
+        ->execute();
 
-      $productId = $this->getModel()->create($_POST);
       $files = ArrayHelper::reArrayFiles($_FILES['images']);
       (new ProductImages())->uploadImages($productId, $files);
 
@@ -35,6 +39,35 @@ class ProductsController extends AbstractAdminController
       $authors = (new Authors())->find();
       $this->render('products/create', ['authors' => $authors]);
     }
+  }
+
+  /**
+   * @param int $id
+   */
+  public function actionUpdate(int $id)
+  {
+    if (RequestHelper::getIsPost()) {
+      $this
+        ->getQuery()
+        ->update($_POST)
+        ->into('products')
+        ->where(["id = {$id}"])
+        ->execute();
+
+      RequestHelper::redirect('/products/list');
+    }
+
+    $product = $this
+      ->getQuery()
+      ->select(['*'])
+      ->from('products')
+      ->where(["id = {$id}"])
+      ->fetchOne();
+
+    $this->render('products/update', [
+      'product' => $product,
+      'authors' => (new Authors())->find()
+    ]);
   }
 
   /**

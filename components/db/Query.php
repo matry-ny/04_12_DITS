@@ -2,6 +2,9 @@
 
 namespace components\db;
 
+use components\db\builder\Insert;
+use components\db\builder\Select;
+use components\db\builder\Update;
 use PDO;
 use PDOStatement;
 
@@ -32,5 +35,36 @@ class Query
   public function prepare(string $sql): PDOStatement
   {
     return $this->dbConnection->prepare($sql);
+  }
+
+  /**
+   * @param array $fields
+   * @return Select
+   */
+  public function select(array $fields): Select
+  {
+    return new Select($fields);
+  }
+
+  /**
+   * @param array $fields
+   * @return Update
+   */
+  public function update(array $fields): Update
+  {
+    return new Update($fields);
+  }
+
+  /**
+   * @return Insert
+   */
+  public function insert(array $fields): Insert
+  {
+    return new Insert($fields);
+  }
+
+  public function delete()
+  {
+
   }
 }

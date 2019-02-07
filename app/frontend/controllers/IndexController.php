@@ -4,7 +4,6 @@ namespace app\frontend\controllers;
 
 use components\AbstractController;
 use components\App;
-use PDO;
 
 /**
  * Class IndexController
@@ -14,14 +13,14 @@ class IndexController extends AbstractController
 {
   public function actionIndex()
   {
-    $products = \components\App::get()
-      ->db()
-      ->getQueryBuilder()
-      ->prepare('SELECT * FROM products');
-    $products->execute();
+    $products = $this
+      ->getQuery()
+      ->select(['*'])
+      ->from('products')
+      ->fetchAll();
 
     App::get()->template()->render('index/index', [
-      'products' => $products->fetchAll(PDO::FETCH_ASSOC)
+      'products' => $products
     ]);
   }
 }
