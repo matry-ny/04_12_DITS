@@ -85,4 +85,41 @@ class Database
 
     return $this->queryBuilder;
   }
+
+  /**
+   * @param string $table
+   * @return string
+   * @throws DbException
+   */
+  public function getPrimaryKey(string $table): string
+  {
+    $sql = "SHOW KEYS FROM {$table} WHERE Key_name = 'PRIMARY'";
+    $query = $this->connection->prepare($sql);
+    $query->execute();
+
+    $key = $query->fetch(PDO::FETCH_ASSOC);
+    if (isset($key['Column_name'])) {
+      return $key['Column_name'];
+    }
+
+    throw new DbException('Primary key is not detected');
+  }
+
+  /**
+   * @param string $table
+   * @return mixed
+   */
+  public function getColumns(string $table): array
+  {
+    $sql = "SHOW COLUMNS FROM {$table}";
+    $query = $this->connection->prepare($sql);
+    $query->execute();
+
+    $columns = [];
+    foreach($query->fetchAll(PDO::FETCH_ASSOC) as $column) {
+      $columns[] = $column['Field'];
+    }
+
+    return $columns;
+  }
 }

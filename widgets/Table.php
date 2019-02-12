@@ -23,21 +23,23 @@ class Table
    * @param array $labels
    * @param array $data
    */
-  public function __construct(array $labels, array $data)  {
+  public function __construct(array $labels, array $data) {
     $this->labels = $labels;
     $this->data = $data;
   }
 
   /**
-   * @param bool|false $withUpdate
+   * @param string|null $updateUrl
+   * @param string|null $deleteUrl
    */
-  public function render(string $updateUrl = null)
+  public function render(string $updateUrl = null, string $deleteUrl = null)
   {
     $table = '<table class="table"><thead class="thead-dark"><tr>';
     foreach ($this->labels as $label) {
       $table .= "<th>{$label}</th>";
     }
-    $table .= $updateUrl ? $this->renderUpdateHead() : '';
+    $table .= $updateUrl ? $this->renderEmptyTh() : '';
+    $table .= $deleteUrl ? $this->renderEmptyTh() : '';
     $table .= '</tr></thead>';
     $table .= '<tbody>';
     foreach ($this->data as $row) {
@@ -48,9 +50,13 @@ class Table
 
       if ($updateUrl) {
         $url = "{$updateUrl}?id={$row['id']}";
-        $table .= $this->renderUpdateColumn($url);
+        $table .= $this->renderActionColumn($url, 'Update', 'primary');
       }
 
+      if ($deleteUrl) {
+        $url = "{$deleteUrl}?id={$row['id']}";
+        $table .= $this->renderActionColumn($url, 'Delete', 'danger');
+      }
 
       $table .= '</tr>';
     }
@@ -62,17 +68,23 @@ class Table
   /**
    * @return string
    */
-  private function renderUpdateHead(): string
+  private function renderEmptyTh(): string
   {
     return '<th></th>';
   }
 
   /**
    * @param string $updateUrl
+   * @param string $label
+   * @param string $class
    * @return string
    */
-  private function renderUpdateColumn(string $updateUrl): string
+  private function renderActionColumn(
+    string $updateUrl,
+    string $label,
+    string $class
+  ): string
   {
-    return "<td><a href='{$updateUrl}' class='btn btn-xs btn-primary'>Update</a></td>";
+    return "<td><a href='{$updateUrl}' class='btn btn-xs btn-{$class}'>{$label}</a></td>";
   }
 }

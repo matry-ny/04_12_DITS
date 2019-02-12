@@ -2,6 +2,7 @@
 
 namespace components\db;
 
+use components\db\builder\Delete;
 use components\db\builder\Insert;
 use components\db\builder\Select;
 use components\db\builder\Update;
@@ -63,8 +64,11 @@ class Query
     return new Insert($fields);
   }
 
-  public function delete()
+  /**
+   * @return Delete
+   */
+  public function delete(): Delete
   {
-
+    return new Delete();
   }
 }
