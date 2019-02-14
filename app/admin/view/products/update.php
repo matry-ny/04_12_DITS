@@ -3,7 +3,7 @@
 use widgets\DropDownOptions;
 
 /**
- * @var array $product
+ * @var \models\entities\Product $product
  * @var array $authors
  */
 
@@ -12,7 +12,7 @@ use widgets\DropDownOptions;
   <label for="product-title">Title</label>
   <input type="text"
          name="title"
-         value="<?= $product['title'] ?>"
+         value="<?= $product->title ?>"
          class="form-control"
          id="product-title">
 
@@ -20,7 +20,7 @@ use widgets\DropDownOptions;
   <select class="form-control" name="author_id" id="product-author-id">
     <?php
       (new DropDownOptions($authors, 'id', 'name'))
-        ->render($product['author_id'])
+        ->render($product->author_id)
     ?>
   </select>
 
@@ -29,7 +29,7 @@ use widgets\DropDownOptions;
          step="0.25"
          min="0"
          name="price"
-         value="<?= $product['price'] ?>"
+         value="<?= $product->price ?>"
          class="form-control"
          id="product-price">
 

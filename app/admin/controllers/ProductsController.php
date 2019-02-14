@@ -3,7 +3,6 @@
 namespace app\admin\controllers;
 
 use app\admin\components\AbstractAdminController;
-use components\App;
 use helpers\ArrayHelper;
 use helpers\RequestHelper;
 use models\Authors;
@@ -19,21 +18,20 @@ class ProductsController extends AbstractAdminController
 {
   public function actionList()
   {
-    $products = $this->getModel()->find();
-    $this->render('products/list', ['products' => $products]);
+    $this->render('products/list', [
+      'products' => Product::findAll()
+    ]);
   }
 
   public function actionCreate()
   {
     if (RequestHelper::getIsPost()) {
-      $productId = $this
-        ->getQuery()
-        ->insert($_POST)
-        ->into('products')
-        ->execute();
+      $model = new Product();
+      $model->load($_POST);
+      $model->save();
 
       $files = ArrayHelper::reArrayFiles($_FILES['images']);
-      (new ProductImages())->uploadImages($productId, $files);
+      (new ProductImages())->uploadImages($model->id, $files);
 
       RequestHelper::redirect('/products/list');
     } else {
@@ -50,22 +48,11 @@ class ProductsController extends AbstractAdminController
     $product = Product::findOne($id);
 
     if (RequestHelper::getIsPost()) {
-      $this
-        ->getQuery()
-        ->update($_POST)
-        ->into('products')
-        ->where(["id = {$id}"])
-        ->execute();
+      $product->load($_POST);
+      $product->save();
 
       RequestHelper::redirect('/products/list');
     }
-
-//    $product = $this
-//      ->getQuery()
-//      ->select(['*'])
-//      ->from('products')
-//      ->where(["id = {$id}"])
-//      ->fetchOne();
 
     $this->render('products/update', [
       'product' => $product,
@@ -78,12 +65,7 @@ class ProductsController extends AbstractAdminController
    */
   public function actionDelete(int $id)
   {
-    $this
-      ->getQuery()
-      ->delete()
-      ->from('products')
-      ->where(["id = {$id} LIMIT 1"])
-      ->execute();
+    Product::findOne($id)->delete();
 
     RequestHelper::redirect('/products/list');
   }

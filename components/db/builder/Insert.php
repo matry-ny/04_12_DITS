@@ -28,7 +28,7 @@ class Insert
    */
   public function __construct(array $values)
   {
-    $this->fields = $values;
+    $this->fields = array_filter($values);
   }
 
   /**
