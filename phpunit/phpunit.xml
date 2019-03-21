@@ -1,0 +1,25 @@
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
+        bootstrap="bootstrap.php"
+        colors="true">
+    <testsuites>
+        <testsuite name="All Tests">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../</directory>
+            <exclude>
+                <directory suffix=".php">../phpunit</directory>
+                <directory suffix=".php">../configs</directory>
+                <directory suffix=".php">../vendor</directory>
+                <directory suffix=".php">../app</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="./logs/coverage-report"/>
+    </logging>
+</phpunit>

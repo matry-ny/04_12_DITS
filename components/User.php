@@ -2,6 +2,7 @@
 
 namespace components;
 
+use components\db\Query;
 use PDO;
 
 /**
@@ -67,8 +68,7 @@ class User
    */
   private function findUserByLogin(string $login)
   {
-    $statement = App::get()
-      ->db()
+    $statement = $this
       ->getQueryBuilder()
       ->prepare('SELECT * FROM users WHERE login = :login');
 
@@ -77,5 +77,20 @@ class User
 
 
     return $statement->fetch(PDO::FETCH_ASSOC);
+  }
+
+  private $queryBuilder;
+
+  public function setQueryBuilder(Query $query): void
+  {
+      $this->queryBuilder = $query;
+  }
+
+  /**
+   * @return Query
+   */
+  public function getQueryBuilder(): Query
+  {
+      return $this->queryBuilder ?: App::get()->db()->getQueryBuilder();
   }
 }
